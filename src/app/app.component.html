@@ -1,0 +1,47 @@
+<!-- <div class="modal fade" id="selectedImageModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="selectedImage" *ngIf="selectedImage">
+          <img src="{{selectedImage.url}}" >
+          <div class="caption">
+            <p><strong>{{selectedImage.title}}</strong></p>
+            <p>{{selectedImage.caption}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div id="myModal" class="modal">
+      <span class="close cursor" (click)="closePhoto()">&times;</span>
+      <div class="modal-content">
+    
+        <div class="mySlides" *ngIf="selectedImage">
+          <img src="{{selectedImage.url}}" style="width:100%">
+        </div>
+    
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
+</div>
+  <div class="centre">Search for photos: <input type="text" [(ngModel)]="filteredTitle" > </div>
+  <br>
+  <ul id="thumbnailsList">
+    <li *ngFor="let image of dataSource | searchFilter: filteredTitle: 'title'" >
+      <img src="{{image.thumbnailUrl}}" class="tn"
+          width="191" height="146" 
+          id="{{image.title}}"
+          data-toggle="modal" data-target="#selectedImageModal"
+          (click)=setSelectedImage(image)>
+    </li>
+  </ul>
+
+<my-pagination
+  (goPage)="goPage($event)"
+  (goNext)="next()"
+  (goPrev)="prev()"
+  [pagesToShow]="3"
+  [page]="page"
+  [perPage]="limit"
+  [count]="total"></my-pagination>
